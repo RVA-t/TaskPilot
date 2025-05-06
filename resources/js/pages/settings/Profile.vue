@@ -21,7 +21,7 @@ defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: 'Настройки профиля',
         href: '/settings/profile',
     },
 ];
@@ -32,6 +32,7 @@ const user = page.props.auth.user as User;
 const form = useForm({
     name: user.name,
     email: user.email,
+    telegram_chat_id: user.telegram_chat_id ?? '',
 });
 
 const submit = () => {
@@ -43,21 +44,21 @@ const submit = () => {
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbs">
-        <Head title="Profile settings" />
+        <Head title="Настройки профиля" />
 
         <SettingsLayout>
             <div class="flex flex-col space-y-6">
-                <HeadingSmall title="Profile information" description="Update your name and email address" />
+                <HeadingSmall title="Информация о пользователе" description="Обновите свое имя и адрес электронной почты" />
 
                 <form @submit.prevent="submit" class="space-y-6">
                     <div class="grid gap-2">
-                        <Label for="name">Name</Label>
+                        <Label for="name">Имя</Label>
                         <Input id="name" class="mt-1 block w-full" v-model="form.name" required autocomplete="name" placeholder="Full name" />
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
 
                     <div class="grid gap-2">
-                        <Label for="email">Email address</Label>
+                        <Label for="email">Адрес электронной почты</Label>
                         <Input
                             id="email"
                             type="email"
@@ -70,26 +71,38 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
 
-                    <div v-if="mustVerifyEmail && !user.email_verified_at">
-                        <p class="-mt-4 text-sm text-muted-foreground">
-                            Your email address is unverified.
-                            <Link
-                                :href="route('verification.send')"
-                                method="post"
-                                as="button"
-                                class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:!decoration-current dark:decoration-neutral-500"
-                            >
-                                Click here to resend the verification email.
-                            </Link>
-                        </p>
-
-                        <div v-if="status === 'verification-link-sent'" class="mt-2 text-sm font-medium text-green-600">
-                            A new verification link has been sent to your email address.
-                        </div>
+                    <div class="grid gap-2">
+                        <Label for="telegram_chat_id">ID телеграм чата</Label>
+                        <Input
+                            id="telegram_chat_id"
+                            class="mt-1 block w-full"
+                            v-model="form.telegram_chat_id"
+                            autocomplete="off"
+                            placeholder="Например: 123456789"
+                        />
+                        <InputError class="mt-2" :message="form.errors.telegram_chat_id" />
                     </div>
 
+<!--                    <div v-if="mustVerifyEmail && !user.email_verified_at">-->
+<!--                        <p class="-mt-4 text-sm text-muted-foreground">-->
+<!--                            Your email address is unverified.-->
+<!--                            <Link-->
+<!--                                :href="route('verification.send')"-->
+<!--                                method="post"-->
+<!--                                as="button"-->
+<!--                                class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:!decoration-current dark:decoration-neutral-500"-->
+<!--                            >-->
+<!--                                Click here to resend the verification email.-->
+<!--                            </Link>-->
+<!--                        </p>-->
+
+<!--                        <div v-if="status === 'verification-link-sent'" class="mt-2 text-sm font-medium text-green-600">-->
+<!--                            A new verification link has been sent to your email address.-->
+<!--                        </div>-->
+<!--                    </div>-->
+
                     <div class="flex items-center gap-4">
-                        <Button :disabled="form.processing">Save</Button>
+                        <Button :disabled="form.processing">Сохранить</Button>
 
                         <TransitionRoot
                             :show="form.recentlySuccessful"
@@ -98,7 +111,7 @@ const submit = () => {
                             leave="transition ease-in-out"
                             leave-to="opacity-0"
                         >
-                            <p class="text-sm text-neutral-600">Saved.</p>
+                            <p class="text-sm text-neutral-600">Сохранено.</p>
                         </TransitionRoot>
                     </div>
                 </form>

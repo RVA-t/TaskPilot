@@ -26,6 +26,7 @@ export interface SharedData extends PageProps {
 }
 
 export interface User {
+    telegram_chat_id: string;
     id: number;
     name: string;
     email: string;

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'telegram_chat_id',
     ];
 
     /**
@@ -44,5 +45,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Проекты, где пользователь — участник
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+
+    // Проекты, где пользователь — создатель
+    public function ownedProjects()
+    {
+        return $this->hasMany(Project::class, 'user_id');
     }
 }
