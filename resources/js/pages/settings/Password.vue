@@ -53,7 +53,7 @@ const updatePassword = () => {
 
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
-        <Head title="Password settings" />
+        <Head title="Настройки пароля" />
 
         <SettingsLayout>
             <div class="space-y-6">
@@ -71,7 +71,7 @@ const updatePassword = () => {
                             autocomplete="current-password"
                             placeholder="Текущий пароль"
                         />
-                        <InputError message="Поле для ввода текущего пароля является обязательным." />
+                        <InputError :message="form.errors.current_password" />
                     </div>
 
                     <div class="grid gap-2">
@@ -85,7 +85,7 @@ const updatePassword = () => {
                             autocomplete="new-password"
                             placeholder="Новый пароль"
                         />
-                        <InputError message="Поле для ввода пароля является обязательным." />
+                        <InputError :message="form.errors.password" />
                     </div>
 
                     <div class="grid gap-2">

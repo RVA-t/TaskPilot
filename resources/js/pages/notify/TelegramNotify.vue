@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { router } from '@inertiajs/vue3';
+import {Head, router} from '@inertiajs/vue3';
 import { toast } from 'vue3-toastify';
 
 const props = defineProps<{
@@ -56,6 +56,7 @@ const filteredUsers = computed(() =>
 </script>
 
 <template>
+    <Head title="Telegram-уведомления"></Head>
     <AppLayout>
         <div class="flex flex-col gap-6 p-6 w-full h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
             <h1 class="text-2xl font-bold mb-2">Telegram-уведомления</h1>

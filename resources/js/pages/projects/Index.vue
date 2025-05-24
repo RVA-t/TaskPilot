@@ -36,7 +36,14 @@ defineProps<{
 
             <!-- Логотип -->
             <div class="flex justify-center">
-                <div class="text-3xl font-bold">🚀 Список проектов</div>
+                <div class="flex items-center gap-2 text-3xl font-bold">
+                    <img
+                        src="/images/minlog-light.png"
+                        alt="Логотип TaskPilot"
+                        class="h-[1em] object-contain dark:hidden"
+                    />
+                    <span>Список проектов</span>
+                </div>
             </div>
 
             <!-- Панель с кнопками и юзером -->

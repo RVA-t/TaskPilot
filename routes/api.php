@@ -19,10 +19,6 @@ Route::patch('/tasks/{task}', [TaskController::class, 'update']);
 Route::get('/tasks/{task}', [TaskController::class, 'show']);
 Route::patch('/tasks/{task}/column', [TaskController::class, 'updateColumn']);
 
-
-//Route::get('/tasks/{task}/comments', [TaskController::class, 'getComments']);
-//Route::post('/tasks/{task}/comments', [TaskController::class, 'addComment'])->middleware('auth:sanctum');
-
 Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::post('/tasks/{task}/comments', [CommentController::class, 'store']);
 });

@@ -13,15 +13,6 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-//Route::get('dashboard', function () {
-//    return Inertia::render('Dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
-
-//Route::middleware(['auth', 'verified'])->group(function () {
-//    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
-//});
-//Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
-
 Route::get('/dashboard/{project}', [DashboardController::class, 'show'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {

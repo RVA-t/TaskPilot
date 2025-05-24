@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import {Head} from "@inertiajs/vue3";
 
 
 const props = defineProps<{
@@ -38,6 +39,7 @@ const completionRate = computed(() => {
 </script>
 
 <template>
+    <Head title="Мои задачи"></Head>
     <AppLayout>
         <div class="flex h-full  flex-col gap-6 rounded-xl p-6 bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100">
             <h1 class="text-3xl font-bold">Мои задачи — {{ project.name }}</h1>

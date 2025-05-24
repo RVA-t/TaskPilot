@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { router } from '@inertiajs/vue3';
+import {Head, router} from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 
 const props = defineProps<{
@@ -47,6 +47,7 @@ function addMember() {
 </script>
 
 <template>
+    <Head title="Участники"></Head>
     <AppLayout>
         <div class="flex h-full  flex-col gap-6 rounded-xl p-6 bg-white text-gray-900 dark:bg-gray-800 dark:text-gray-100">
             <!-- Заголовок и кнопка -->

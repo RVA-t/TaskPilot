@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Calendar } from 'v-calendar'
 import 'v-calendar/style.css'
+import {Head} from "@inertiajs/vue3";
 
 const props = defineProps<{
     project: any;
@@ -26,7 +27,10 @@ const getStatusByIndex = (index: number): string => {
 
 const selectedDate = ref('')
 const selectedTasks = computed(() =>
-    props.tasks.filter(task => task.deadline.slice(0, 10) === selectedDate.value)
+    props.tasks.filter(task => {
+        const taskDate = new Date(task.deadline).toLocaleDateString('ru-RU')
+        return taskDate === selectedDate.value
+    })
 )
 
 const taskMap = computed(() => {
@@ -87,11 +91,12 @@ const getProgress = (s: ReturnType<typeof stats>) =>
 
 function onDayClick({ date }: { date: Date }) {
     // Получаем дату без сдвига по UTC
-    selectedDate.value = date.toLocaleDateString('sv-SE') // 'YYYY-MM-DD'
+    selectedDate.value = date.toLocaleDateString('ru-RU') // 'YYYY-MM-DD'
 }
 </script>
 
 <template>
+    <Head title="Календарь"></Head>
     <AppLayout>
         <div class="flex gap-4 p-5 h-[calc(100vh-100px)]">
             <!-- Левая колонка с календарем и статистикой -->
