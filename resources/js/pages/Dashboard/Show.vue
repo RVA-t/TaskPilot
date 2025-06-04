@@ -132,13 +132,25 @@ const saveTaskColumn = async (task, columnIndex) => {
 };
 
 const saveTask = async (columnIndex: number) => {
+    console.log('column.newTaskTitle:', columns.value[columnIndex].newTaskTitle);
+
     const title = columns.value[columnIndex].newTaskTitle.trim();
     if (!title) {
+        console.log('необходимо ввести название')
         columns.value[columnIndex].isAdding = false;
         return;
     }
 
     try {
+        console.log('Отправка задачи', {
+            title,
+            project_id: props.project.id,
+            column_index: columnIndex,
+            deadline: null,
+        });
+
+        // await axios.get('/sanctum/csrf-cookie');
+
         const response = await axios.post('/api/tasks', {
             title,
             project_id: props.project.id,
@@ -152,7 +164,11 @@ const saveTask = async (columnIndex: number) => {
         columns.value[columnIndex].newTaskTitle = '';
         columns.value[columnIndex].isAdding = false;
     } catch (error) {
-        console.error('Ошибка при создании задачи:', error);
+        if (axios.isAxiosError(error)) {
+            console.error('Ответ с ошибкой:', error.response?.data);
+        } else {
+            console.error('Неизвестная ошибка:', error);
+        }
     }
 };
 
@@ -266,7 +282,7 @@ const filteredColumns = computed(() => {
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full">
                 <div
-                    v-for="(column, columnIndex) in filteredColumns"
+                    v-for="(column, columnIndex) in columns"
                     :key="columnIndex"
                     class="flex flex-col p-4 rounded-xl shadow-md bg-gray-50 text-gray-900 border border-gray-200 dark:bg-gray-900 dark:text-gray-100 dark:border-gray-600"
                     :data-column-index="columnIndex"
